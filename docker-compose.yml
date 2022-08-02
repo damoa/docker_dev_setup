@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  # database:
+  #   image: 'postgres:12.11'
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     POSTGRES_USER: postgres # The PostgreSQL user (useful to connect to the database)
+  #     POSTGRES_PASSWORD: password # The PostgreSQL password (useful to connect to the database)
+  #     POSTGRES_DB: default_database # The PostgreSQL default database (automatically created at first launch)
+  app:
+    build: .
+    # depends_on:
+    #   - database
+    volumes:
+      - ${CODE_DIR}:${CODE_DIR}:rw
+      - ${SSH_DIR}:${SSH_DIR}:ro
+      - ${VIM_SETUP}:${VIM_SETUP}:ro
+      - ${NVIM_SETUP}:${NVIM_SETUP}:ro
+      - ${NVIM_COC_SETUP}:${NVIM_COC_SETUP}:ro
+      - ${GIT_CONFIG}:${GIT_CONFIG}:ro

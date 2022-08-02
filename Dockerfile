@@ -1,6 +1,8 @@
 FROM ubuntu:20.04
 MAINTAINER Damoa https://github.com/damoa
 
+RUN useradd -ms /bin/bash damoa
+
 # replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
@@ -38,7 +40,7 @@ ENV PATH /root/.rbenv/bin:$PATH
 RUN echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh # or /etc/profile
 RUN echo 'eval "$(rbenv init -)"' >> .bashrc
 RUN rbenv install 2.7.6
-# # RUN rbenv install 3.1.2
+RUN rbenv install 3.1.2
 
 # Install nvm and node 14.19.3 + 18.3.0
 # Install base dependencies
@@ -82,3 +84,14 @@ RUN add-apt-repository -y ppa:jonathonf/vim && apt-get update && apt-get install
 
 ENV RAILS_ENV development
 ENV NODE_ENV development
+
+RUN apt-get update && DEBIAN_FRONTEND='noninteractive' apt-get install -y dconf-cli gnome-terminal
+RUN eval `dircolors ${CODE_DIR}/gnome-terminal-colors-solarized/dircolors`
+
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | \
+    bash
+RUN apt-get update && apt-get install -y nodejs
+RUN apt-get update && apt-get install -y tmux
+
+USER damoa
+ENV TERM xterm-256color
