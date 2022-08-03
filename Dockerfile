@@ -86,12 +86,16 @@ ENV RAILS_ENV development
 ENV NODE_ENV development
 
 RUN apt-get update && DEBIAN_FRONTEND='noninteractive' apt-get install -y dconf-cli gnome-terminal
-RUN eval `dircolors ${CODE_DIR}/gnome-terminal-colors-solarized/dircolors`
+RUN eval `dircolors ${CODE_DIR_IMAGE}/gnome-terminal-colors-solarized/dircolors`
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | \
     bash
 RUN apt-get update && apt-get install -y nodejs
 RUN apt-get update && apt-get install -y tmux
 
+RUN curl https://getcroc.schollz.com | \
+    bash
+
+WORKDIR ${CODE_DIR_IMAGE}
 USER damoa
 ENV TERM xterm-256color
