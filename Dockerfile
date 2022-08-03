@@ -115,6 +115,21 @@ RUN git clone https://github.com/junegunn/fzf.vim.git /home/damoa/.vim/pack/my_p
 RUN echo "set rtp+=/home/damoa/.fzf" >> /home/damoa/.vimrc
 RUN echo "map ,f :FZF<cr>" >> /home/damoa/.vimrc
 RUN git clone https://github.com/w0rp/ale.git /home/damoa/.vim/pack/my_plugins/start/ale
+RUN git clone https://github.com/tpope/vim-fugitive.git /home/damoa/.vim/pack/my_plugins/start/vim-fugitive
+RUN git clone https://github.com/junegunn/gv.vim.git /home/damoa/.vim/pack/my_plugins/start/gv
+RUN git clone https://github.com/SirVer/ultisnips.git /home/damoa/.vim/pack/my_plugins/start/ultisnips
+RUN git clone https://github.com/easymotion/vim-easymotion.git /home/damoa/.vim/pack/my_plugins/start/vim-easymotion
+RUN git clone https://github.com/godlygeek/tabular.git /home/damoa/.vim/pack/my_plugins/start/tabular
+RUN git clone https://github.com/tomtom/tcomment_vim.git /home/damoa/.vim/pack/my_plugins/start/tcomment_vim
+RUN git clone https://github.com/lifepillar/vim-solarized8.git /home/damoa/.vim/pack/my_plugins/start/vim-solarized8
+RUN echo "set t_Co=256" >> /home/damoa/.vimrc
+RUN echo "set background=dark" >> /home/damoa/.vimrc
+RUN echo "colorscheme solarized8" >> /home/damoa/.vimrc
+RUN git clone https://github.com/tpope/vim-rhubarb.git /home/damoa/.vim/pack/my_plugins/start/vim-rhubarb
+RUN git clone https://github.com/tpope/vim-surround.git /home/damoa/.vim/pack/my_plugins/start/vim-surround
+
+RUN echo "map ,h <C-v>e\"+y,a<C-r>+<Enter>/<C-r>+<Enter>" >> /home/damoa/.vimrc
+RUN echo "map gd <C-v>e\"+y,adef.<C-r>+\|def.self.<C-r>+\|scope.\:<C-r>+\|module.<C-r>+\|class.<C-r>+<Enter>" >> /home/damoa/.vimrc
 
 WORKDIR /home/damoa/code
 USER damoa
