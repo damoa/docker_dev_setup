@@ -114,7 +114,7 @@ RUN git clone --depth 1 https://github.com/junegunn/fzf.git /home/damoa/.fzf && 
 RUN git clone https://github.com/junegunn/fzf.vim.git /home/damoa/.vim/pack/my_plugins/start/fzf.vim
 RUN echo "set rtp+=/home/damoa/.fzf" >> /home/damoa/.vimrc
 RUN echo "map ,f :FZF<cr>" >> /home/damoa/.vimrc
-
+RUN git clone https://github.com/w0rp/ale.git /home/damoa/.vim/pack/my_plugins/start/ale
 
 WORKDIR /home/damoa/code
 USER damoa
