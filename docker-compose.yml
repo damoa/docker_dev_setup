@@ -15,4 +15,6 @@ services:
     volumes:
       - ${CODE_DIR_LOCAL}:${CODE_DIR_IMAGE}:rw
       - ${SSH_DIR_LOCAL}:${SSH_DIR_IMAGE}:rw
+      - ${VIM_SETUP_IMAGE}
+      - ${FZF_IMAGE}
       - ${GIT_CONFIG_LOCAL}:${GIT_CONFIG_IMAGE}:ro

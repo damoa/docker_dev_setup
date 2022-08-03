@@ -102,8 +102,19 @@ RUN echo "alias gp='git push'" >> /home/damoa/.bashrc
 RUN echo "alias gcm='git pull --quiet && git branch --merged | grep -v master | xargs git branch -d 2> /dev/null'" >> /home/damoa/.bashrc
 RUN echo "alias gpu='git rev-parse --abbrev-ref HEAD | xargs -I{} git push -u origin {} && sleep 3 && git config --local remote.origin.url| sed -n \"s#.*/\([^.]*\)\.git#\1#p\" | xargs -I % chromium https://github.com/sofatutor/%/pull/new/$(git rev-parse --abbrev-ref HEAD)'" >> /home/damoa/.bashrc
 
+RUN apt-get update && apt-get install -y silversearcher-ag
+
 RUN mkdir -p /home/damoa/.vim/pack/my_plugins/start
 RUN git clone https://github.com/preservim/nerdtree.git /home/damoa/.vim/pack/my_plugins/start/nerdtree
+RUN git clone https://github.com/cohama/agit.vim.git /home/damoa/.vim/pack/my_plugins/start/agit
+RUN git clone https://github.com/rking/ag.vim.git /home/damoa/.vim/pack/my_plugins/start/ag
+RUN echo "map ,a \|:Ag ''<Left>" >> /home/damoa/.vimrc
+RUN apt-get update && apt-get install -y fzf
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git /home/damoa/.fzf && /home/damoa/.fzf/install
+RUN git clone https://github.com/junegunn/fzf.vim.git /home/damoa/.vim/pack/my_plugins/start/fzf.vim
+RUN echo "set rtp+=/home/damoa/.fzf" >> /home/damoa/.vimrc
+RUN echo "map ,f :FZF<cr>" >> /home/damoa/.vimrc
+
 
 WORKDIR /home/damoa/code
 USER damoa
