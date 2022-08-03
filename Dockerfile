@@ -86,7 +86,6 @@ ENV RAILS_ENV development
 ENV NODE_ENV development
 
 RUN apt-get update && DEBIAN_FRONTEND='noninteractive' apt-get install -y dconf-cli gnome-terminal
-RUN eval `dircolors ${CODE_DIR_IMAGE}/gnome-terminal-colors-solarized/dircolors`
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | \
     bash
@@ -96,6 +95,16 @@ RUN apt-get update && apt-get install -y tmux
 RUN curl https://getcroc.schollz.com | \
     bash
 
-WORKDIR ${CODE_DIR_IMAGE}
+RUN echo "eval `dircolors /home/damoa/code/gnome-terminal-colors-solarized/dircolors`" >> /home/damoa/.bashrc
+RUN echo "alias v='vi'" >> /home/damoa/.bashrc
+RUN echo "alias vo='git diff --name-only | xargs -o vi'" >> /home/damoa/.bashrc
+RUN echo "alias gp='git push'" >> /home/damoa/.bashrc
+RUN echo "alias gcm='git pull --quiet && git branch --merged | grep -v master | xargs git branch -d 2> /dev/null'" >> /home/damoa/.bashrc
+RUN echo "alias gpu='git rev-parse --abbrev-ref HEAD | xargs -I{} git push -u origin {} && sleep 3 && git config --local remote.origin.url| sed -n \"s#.*/\([^.]*\)\.git#\1#p\" | xargs -I % chromium https://github.com/sofatutor/%/pull/new/$(git rev-parse --abbrev-ref HEAD)'" >> /home/damoa/.bashrc
+
+RUN mkdir -p /home/damoa/.vim/pack/my_plugins/start
+RUN git clone https://github.com/preservim/nerdtree.git /home/damoa/.vim/pack/my_plugins/start/nerdtree
+
+WORKDIR /home/damoa/code
 USER damoa
 ENV TERM xterm-256color
